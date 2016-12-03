@@ -328,7 +328,10 @@ class CFX_ArrayTemplate : public CFX_BasicArray {
 
   const TYPE GetAt(int nIndex) const {
     if (nIndex < 0 || nIndex >= m_nSize) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnull-dereference"
       return (const TYPE&)(*(volatile const TYPE*)NULL);
+#pragma clang diagnostic pop
     }
     return ((const TYPE*)m_pData)[nIndex];
   }
@@ -343,7 +346,10 @@ class CFX_ArrayTemplate : public CFX_BasicArray {
 
   TYPE& ElementAt(int nIndex) {
     if (nIndex < 0 || nIndex >= m_nSize) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnull-dereference"
       return *(TYPE*)NULL;
+#pragma clang diagnostic pop
     }
     return ((TYPE*)m_pData)[nIndex];
   }
